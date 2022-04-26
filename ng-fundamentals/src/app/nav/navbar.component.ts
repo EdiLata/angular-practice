@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../user/auth.service';
-import {EventService, ISession} from '../events';
+import {EventService, IEvent, ISession} from '../events';
 
 @Component({
   selector: 'nav-bar',

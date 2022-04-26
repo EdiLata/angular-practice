@@ -21,7 +21,7 @@ import {IEvent, ISession} from '../shared';
     }
   `]
 })
-export class EventDetailsComponent implements OnInit{
+export class EventDetailsComponent implements OnInit {
   event: IEvent;
   addMode: boolean;
   filterBy: string = 'all';
@@ -31,10 +31,10 @@ export class EventDetailsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      this.event = this.eventService.getEvent(+params['id']);
-      this.addMode = false;
-    })
+    this.route.data.forEach(data => {
+        this.event = data['event'];
+        this.addMode = false;
+    });
   }
 
   addSession() {
@@ -45,7 +45,7 @@ export class EventDetailsComponent implements OnInit{
     const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
     session.id = nextId + 1;
     this.event.sessions.push(session);
-    this.eventService.updateEvent(this.event);
+    this.eventService.saveEvent(this.event).subscribe();
     this.addMode = false;
   }
 
